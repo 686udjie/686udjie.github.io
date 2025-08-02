@@ -15,7 +15,7 @@ The picture displayed top right is my drawing. Credits to me (can’t copyright 
 
 On the socials page, the Spotify icon was taken from here: [https://www.pinterest.com/pin/839428818040817502/](https://www.pinterest.com/pin/839428818040817502/), the Last.fm icon was taken from here—I just cropped it a bit: [https://www.iconsdb.com/black-icons/lastfm-icon.html](https://www.iconsdb.com/black-icons/lastfm-icon.html).
 The AniList icon was taken from here: [https://commons.wikimedia.org/wiki/File\:AniList\_logo.svg](https://commons.wikimedia.org/wiki/File:AniList_logo.svg).
-The Discord icon was taken from here: [https://www.flaticon.com/free-icon/discord_3670325] (https://www.flaticon.com/free-icon/discord_3670325)
+The Discord icon was taken from here: [https://www.flaticon.com/free-icon/discord_3670325](https://www.flaticon.com/free-icon/discord_3670325)
 
 For the collage on the farewell page, the column most leftward—both images are mine (drawings). The rest are from these links:
 
