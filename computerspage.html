@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Computers</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖥️</text></svg>"
+    type="image/svg+xml">
+  <style>
+    html {
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a.home-NavBar,
+    a.music-NavBar,
+    a.computers-NavBar,
+    a.hobbies-NavBar,
+    a.socials-NavBar,
+    a.farewell-NavBar {
+      text-decoration: none;
+    }
+
+    .NavBar {
+      display: flex;
+      height: 6vh;
+      background: rgba(34, 34, 34, 0.82);
+      border-radius: 3vh;
+      width: 90vw;
+      max-width: 79vw;
+      box-shadow: 0 0.4vh 2.4vh 0.2vh rgba(0, 0, 0, 0.3);
+      overflow: visible;
+      backdrop-filter: blur(0.2vh);
+      border: 0.1vh solid rgba(80, 80, 80, 0.15);
+      margin: 1vh auto;
+      flex-shrink: 0;
+    }
+
+    .home-NavBar,
+    .music-NavBar,
+    .computers-NavBar,
+    .hobbies-NavBar,
+    .socials-NavBar,
+    .farewell-NavBar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #cdd1d4;
+      border-right: 0.1vh solid rgba(80, 80, 80, 0.10);
+      transition: background 0.2s, color 0.2s;
+      background: transparent;
+      user-select: none;
+      height: 100%;
+      outline: none;
+    }
+
+    .home-NavBar,
+    .farewell-NavBar {
+      flex: 0 0 6vw;
+      font-size: 3vh;
+    }
+
+    .music-NavBar,
+    .computers-NavBar,
+    .hobbies-NavBar,
+    .socials-NavBar {
+      flex: 1 1 0;
+      padding: 0 2vw;
+      font-weight: 600;
+      font-size: 2.5vh;
+      min-width: 7vw;
+      box-sizing: border-box;
+    }
+
+
+    .farewell-NavBar {
+      border-right: none;
+    }
+
+    .home-NavBar:hover,
+    .music-NavBar:hover,
+    .computers-NavBar:hover,
+    .hobbies-NavBar:hover,
+    .socials-NavBar:hover,
+    .farewell-NavBar:hover,
+    .home-NavBar:focus,
+    .music-NavBar:focus,
+    .computers-NavBar:focus,
+    .hobbies-NavBar:focus,
+    .socials-NavBar:focus,
+    .farewell-NavBar:focus {
+      background: rgba(80, 80, 80, 0.24);
+      color: #fff;
+    }
+
+    .home-NavBar[data-tooltip]::after,
+    .farewell-NavBar[data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      top: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(80, 80, 80, 0.9);
+      color: #fff;
+      padding: 0.3vh 0.8vw;
+      border-radius: 1vh;
+      font-size: 1.5vh;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, top 0.25s;
+    }
+
+    .home-NavBar[data-tooltip]::before,
+    .farewell-NavBar[data-tooltip]::before {
+      content: '';
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0.6vh;
+      border-style: solid;
+      border-color: transparent transparent rgba(80, 80, 80, 0.9) transparent;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, top 0.25s;
+    }
+
+    .home-NavBar[data-tooltip]:hover::after,
+    .home-NavBar[data-tooltip]:hover::before,
+    .home-NavBar[data-tooltip]:focus::after,
+    .home-NavBar[data-tooltip]:focus::before,
+    .farewell-NavBar[data-tooltip]:hover::after,
+    .farewell-NavBar[data-tooltip]:hover::before,
+    .farewell-NavBar[data-tooltip]:focus::after,
+    .farewell-NavBar[data-tooltip]:focus::before {
+      opacity: 1;
+      top: 130%;
+    }
+
+    .fixed-image-label {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.5vh;
+      color: #ccc;
+      max-width: 12vw;
+      margin: 0.5vh 0.5vw;
+      transform-origin: bottom right;
+      transform: scale(0.7);
+    }
+
+    .silly-computer-yap-session {
+      width: 90vw;
+      max-width: 79vw;
+      margin: 1vh auto;
+      background-color: rgba(34, 34, 34, 0.85);
+      font-size: 2.5vh;
+      line-height: 1.5;
+      color: #cdd1d4;
+      background: linear-gradient(to right, #79b8ff, #c084fc, #db2777);
+      background-clip: text;
+      color: transparent;
+    }
+
+    .silly-computer-yap-session a {
+      color: #ff96c8 !important;
+    }
+
+    .i-love-open-software img {
+      transform: scale(0.75) translateY(-21.5vh) translateX(85vh);
+      transform-origin: bottom left;
+    }
+
+    .i-love-open-software:hover,
+    .i-love-open-software:focus {
+      transform: scale(1.02);
+      transition: transform 0.2s ease;
+      box-shadow: 0 0.6vh 2vh rgba(255, 255, 255, 0.729);
+      outline: none;
+    }
+
+    .desktop-computer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      transform: scale(0.85);
+      transform-origin: bottom left;
+    }
+  </style>
+</head>
+
+
+<body>
+
+
+  <nav class="NavBar" aria-label="Top navigation bar">
+    <a href="index.html" class="home-NavBar" aria-label="Home" data-tooltip="Home" tabindex="0">🏠</a>
+    <a href="musicpage.html" class="music-NavBar" tabindex="0">Music</a>
+    <a href="computerspage.html" class="computers-NavBar" tabindex="0">Computers</a>
+    <a href="hobbiespage.html" class="hobbies-NavBar" tabindex="0">Hobbies</a>
+    <a href="socialspage.html" class="socials-NavBar" tabindex="0">Socials</a>
+    <a href="farewellpage.html" class="farewell-NavBar" aria-label="Farewell" data-tooltip="Farewell"
+      tabindex="0">👋</a>
+  </nav>
+
+  <div class="silly-computer-yap-session">
+    <p>Computers are really important to me. I use them as a means to do my schoolwork, as entertainment, and as a means
+      to get cracks for paid/advertised software that shouldn't do what these cracks do.</p>
+    <p>Let's start with things I use on my computer. The most wide-use software that I use on a daily basis is
+      <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener noreferrer">yt-dlp</a>. It's basically a
+      media downloader, very, very useful if all you do is send memes, which is what I do. I also use
+      <a href="https://github.com/FFmpeg/FFmpeg" target="_blank" rel="noopener noreferrer">FFmpeg</a>. This is a file
+      converting tool. This is better than visiting sketchy sites and changing file formats there. It's also much faster
+      since it does it locally on your device.
+    </p>
+    <p>Now to the ones that are not as known but ones that I fell in love with. Up until a few weeks ago, I've been
+      using
+      <a href="https://github.com/mostafaalagamy/Metrolist" target="_blank" rel="noopener noreferrer">Metrolist</a>.
+      This is a YouTube Music app on Android that is based on
+      <a href="https://github.com/OuterTune/OuterTune" target="_blank" rel="noopener noreferrer">Outertune</a> and
+      <a href="https://github.com/z-huang/InnerTune" target="_blank" rel="noopener noreferrer">Innertune</a> to provide
+      a YouTube Music app but better — offline playback, playback when app is closed, Material 3, etc. The only downside
+      being is that unlike YouTube Music, its caching system is limited because API calls from Google are limited, so
+      you gotta wait a few seconds before clicking play for the song to actually play, while on the actual YTM client,
+      the music plays once you press play.
+    </p>
+    <p>Luckily, I found
+      <a href="https://github.com/anddea/revanced-patches" target="_blank" rel="noopener noreferrer">ReVanced
+        Extended</a>, which is based on
+      <a href="https://github.com/ReVanced/revanced-patcher" target="_blank" rel="noopener noreferrer">ReVanced</a> but
+      supercharged for Spotify, Reddit, YTM, and YouTube. The YTM patch allows for UI customization, features like
+      downloading with 3rd-party tools like
+      <a href="https://github.com/deniscerri/ytdlnis" target="_blank" rel="noopener noreferrer">ytdlnis</a>. So I got
+      rid of Metrolist and used RVX YTM.
+    </p>
+  </div>
+
+  <div class="i-love-open-software">
+    <img src="assets/love-open-software.png" alt="love-open-software" />
+  </div>
+
+  <div class="desktop-computer">
+    <img src="assets/desktop-setup.png" alt="desktop-computer" />
+  </div>
+
+
+
+  <div class="fixed-image-label">
+    <img src="assets/pathetic-gaze.png" alt="fixed-pathetic-gaze" />
+  </div>
+
+</body>
+
+
+</html>

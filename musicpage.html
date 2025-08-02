@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Music</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎵</text></svg>"
+        type="image/svg+xml">
+    <style>
+        html {
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: system-ui, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a.home-NavBar,
+        a.music-NavBar,
+        a.computers-NavBar,
+        a.hobbies-NavBar,
+        a.socials-NavBar,
+        a.farewell-NavBar {
+            text-decoration: none;
+        }
+
+        .NavBar {
+            display: flex;
+            height: 6vh;
+            background: rgba(34, 34, 34, 0.82);
+            border-radius: 3vh;
+            width: 90vw;
+            max-width: 79vw;
+            box-shadow: 0 0.4vh 2.4vh 0.2vh rgba(0, 0, 0, 0.3);
+            overflow: visible;
+            backdrop-filter: blur(0.2vh);
+            border: 0.1vh solid rgba(80, 80, 80, 0.15);
+            margin: 1vh auto;
+            flex-shrink: 0;
+        }
+
+        .home-NavBar,
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar,
+        .farewell-NavBar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cdd1d4;
+            border-right: 0.1vh solid rgba(80, 80, 80, 0.10);
+            transition: background 0.2s, color 0.2s;
+            background: transparent;
+            user-select: none;
+            height: 100%;
+            outline: none;
+        }
+
+        .home-NavBar,
+        .farewell-NavBar {
+            flex: 0 0 6vw;
+            font-size: 3vh;
+        }
+
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar {
+            flex: 1 1 0;
+            padding: 0 2vw;
+            font-weight: 600;
+            font-size: 2.5vh;
+            min-width: 7vw;
+            box-sizing: border-box;
+        }
+
+
+        .farewell-NavBar {
+            border-right: none;
+        }
+
+        .home-NavBar:hover,
+        .music-NavBar:hover,
+        .computers-NavBar:hover,
+        .hobbies-NavBar:hover,
+        .socials-NavBar:hover,
+        .farewell-NavBar:hover,
+        .home-NavBar:focus,
+        .music-NavBar:focus,
+        .computers-NavBar:focus,
+        .hobbies-NavBar:focus,
+        .socials-NavBar:focus,
+        .farewell-NavBar:focus {
+            background: rgba(80, 80, 80, 0.24);
+            color: #fff;
+        }
+
+        .home-NavBar[data-tooltip]::after,
+        .farewell-NavBar[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(80, 80, 80, 0.9);
+            color: #fff;
+            padding: 0.3vh 0.8vw;
+            border-radius: 1vh;
+            font-size: 1.5vh;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, top 0.25s;
+        }
+
+        .home-NavBar[data-tooltip]::before,
+        .farewell-NavBar[data-tooltip]::before {
+            content: '';
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0.6vh;
+            border-style: solid;
+            border-color: transparent transparent rgba(80, 80, 80, 0.9) transparent;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, top 0.25s;
+        }
+
+        .home-NavBar[data-tooltip]:hover::after,
+        .home-NavBar[data-tooltip]:hover::before,
+        .home-NavBar[data-tooltip]:focus::after,
+        .home-NavBar[data-tooltip]:focus::before,
+        .farewell-NavBar[data-tooltip]:hover::after,
+        .farewell-NavBar[data-tooltip]:hover::before,
+        .farewell-NavBar[data-tooltip]:focus::after,
+        .farewell-NavBar[data-tooltip]:focus::before {
+            opacity: 1;
+            top: 130%;
+        }
+
+        /* NavBar is smaller on this page compared to others because my placement of 
+        empire-of-love-album messes with its styling only size-wise. 
+        It's not a bug, but a feature 🧠 */
+        .empire-of-love-album,
+        .suki-to-iwareta-hi,
+        .Ittoiteyo {
+            max-width: 240px;
+            max-height: 320px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 1.2vh;
+            box-shadow: 0 0.4vh 1.2vh rgba(255, 255, 255, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .empire-of-love-album {
+            max-width: 160px;
+            max-height: 213px;
+            transform-origin: top left;
+            transform: scale(1.3);
+        }
+
+        .empire-of-love-album:hover,
+        .empire-of-love-album:focus {
+            transform: scale(1.35);
+            box-shadow: 0 0.6vh 2vh rgba(255, 255, 255, 0.4);
+            outline: none;
+            transition: transform 0.2s ease-out;
+        }
+
+        .suki-to-iwareta-hi:hover,
+        .suki-to-iwareta-hi:focus,
+        .Ittoiteyo:hover,
+        .Ittoiteyo:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0.6vh 2vh rgba(255, 255, 255, 0.4);
+        }
+
+        .Ittoiteyo {
+            position: relative;
+            right: 5vw !important;
+        }
+
+        .fixed-image-label {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.5vh;
+            color: #ccc;
+            max-width: 12vw;
+            margin: 0.5vh 0.5vw;
+            transform-origin: bottom right;
+            transform: scale(0.7);
+        }
+
+        .centered-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            flex-direction: column;
+        }
+
+        .music-content-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: 100vw;
+            padding: 4vh 2vw;
+            gap: 2vw;
+        }
+
+        .music-intro-text {
+            flex: 1 1 auto;
+            min-width: 0;
+            font-size: 2.15vh;
+            line-height: 1.5;
+            text-align: left;
+            font-family: inherit;
+            background: linear-gradient(to right, #db2777, #79b8ff, #c084fc);
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            box-shadow: 0 0.4vh 1.6vh 0.3vh rgba(0, 0, 0, 0.17);
+            border-radius: 1.3vh;
+            padding: 2.5vh 2vw;
+            max-width: 65vw;
+        }
+
+        .music-intro-text a {
+            color: #ff96c8 !important;
+            text-decoration: underline;
+            background-clip: initial !important;
+            -webkit-text-fill-color: initial !important;
+        }
+
+        .music-intro-text a:hover,
+        .music-intro-text a:focus {
+            color: #2b86c5 !important;
+        }
+
+        .albums-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .Ecifircas {
+            max-width: 60px;
+            position: relative;
+            right: 12vw;
+            transform: scale(4);
+            transition: transform 0.2s ease;
+            border-radius: .5vh;
+        }
+
+        .Ecifircas:hover,
+        .Ecifircas:focus {
+            transform: scale(4.05);
+            box-shadow: 0 0.6vh 2vh rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+
+        .bonus-song {
+            font-weight: bold;
+            font-size: 2.5vh;
+            margin-top: 1.5rem;
+            color: transparent;
+            background: linear-gradient(45deg, #00ffea, #0077ff, #00aaff);
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 0.12em solid currentColor;
+        }
+
+        .theory-of-a-deadman {
+            display: block;
+            max-width: 37vw;
+            height: auto;
+            border-radius: 1vh;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            border: 0.2vw solid transparent;
+            box-sizing: border-box;
+            margin-left: 5vw;
+        }
+
+        .theory-of-a-deadman:hover,
+        .theory-of-a-deadman:focus {
+            transform: scale(1.05);
+            box-shadow: 0 0.6vh 2vh rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="NavBar" aria-label="Top navigation bar">
+        <a href="index.html" class="home-NavBar" aria-label="Home" data-tooltip="Home" tabindex="0">🏠</a>
+        <a href="musicpage.html" class="music-NavBar" tabindex="0">Music</a>
+        <a href="computerspage.html" class="computers-NavBar" tabindex="0">Computers</a>
+        <a href="hobbiespage.html" class="hobbies-NavBar" tabindex="0">Hobbies</a>
+        <a href="socialspage.html" class="socials-NavBar" tabindex="0">Socials</a>
+        <a href="farewellpage.html" class="farewell-NavBar" aria-label="Farewell" data-tooltip="Farewell"
+            tabindex="0">👋</a>
+    </nav>
+
+    <main class="centered-content">
+        <div class="music-content-container">
+            <div class="music-intro-text">
+                Music for me is a MUST. I usually listen to breakcore/jpop and black metal. I listen to a lot of
+                <a href="https://music.youtube.com/channel/UC0HK-XmRc9EvUZoBpAgmDug" target="_blank"
+                    rel="noopener">Voilet
+                    cold</a>; she does black metal. Some notable ones are
+                <a href="https://music.youtube.com/watch?v=l4MGyfDMShw&si=MnOTQZB7a7TYSV-R" target="_blank"
+                    rel="noopener">Shegnificant</a> and
+                <a href="https://music.youtube.com/watch?v=GrQL59duC_k&si=YYeNYKCF_2x7S2Bv" target="_blank"
+                    rel="noopener">Working class</a>. everything in her
+                <a href="https://music.youtube.com/playlist?list=OLAK5uy_ntvUzWDofC3sKtiXfBt10N3gZ2XGOaKXM&si=l-BU4LcoZRok6HAx"
+                    target="_blank" rel="noopener">Empire of Love</a> album is peak.<br><br>
+
+                For jpop I listen to everything
+                <a href="https://music.youtube.com/channel/UCKZLPAAyImrkYnDVR0O2UXQ?si=oaulGxP1XOg6lxis" target="_blank"
+                    rel="noopener">Egoist</a>, like
+                <a href="https://music.youtube.com/watch?v=UI7IsfnPNk4&si=qoD_7E1cIcg_1ziI" target="_blank"
+                    rel="noopener">Suki To Iwareta Hi</a> from alter ego all the way to
+                <a href="https://music.youtube.com/channel/UClZMIQn97IcvrdGviWz-qRw?si=47HzWaUbI8pPa08f" target="_blank"
+                    rel="noopener">9lana</a> for
+                <a href="https://music.youtube.com/watch?v=_-Yd_3BY55Y&si=ysaBuivGMN3zN-7R" target="_blank"
+                    rel="noopener">言っといてよ</a>.<br><br>
+
+                For breakcore I enjoy
+                <a href="https://music.youtube.com/channel/UCKGYsaY8I62fXzHhywZAG6w?si=hd2XbImpEXQZtHuN" target="_blank"
+                    rel="noopener">Sewersvlt</a>. yes ik it's technically considered
+                <a href="https://en.wikipedia.org/wiki/Drum_and_bass" target="_blank" rel="noopener">drum and bass</a>,
+                but I consider his works like
+                <a href="https://music.youtube.com/watch?v=IuaLOs6C008&si=iK0aRY8TMw3Jxo3S" target="_blank"
+                    rel="noopener">Ecifircas</a> leaning to the breakcore end.<br><br>
+
+                But essentially, I love all music that resonates or calls emotion in me. For me, music is a way of
+                self-expression.<br>
+                Each pillar that I enjoy has a particular meaning. Black metal is for expressing my emotions that I
+                can't otherwise express or can't put into words. its "satanic" per se aspect is responsible for the
+                unleashment of emotion. J-pop is for when I'm in a car ride and need something in my ear to distract me.
+                Jpop/Breakcore is just for the fun of it while i'm answering emails, playing games, or something
+                entertaining
+                that doesn't require a lot of brain functions.
+                <br>
+                <div class="bonus-song">Bonus song!</div><br>
+                <a href="https://music.youtube.com/watch?v=3f0xfwHR5ps&list=OLAK5uy_kET7b38baF2NmYq0xnHV4JSrj1hNcwvqY"
+                    target="_blank" rel="noopener">
+                    <img src="assets/theory-of-a-deadman.png" class="theory-of-a-deadman" alt="Theory of a Deadman" />
+                </a>
+            </div>
+            <div class="albums-vertical">
+                <a href="https://music.youtube.com/playlist?list=OLAK5uy_ntvUzWDofC3sKtiXfBt10N3gZ2XGOaKXM&si=l-BU4LcoZRok6HAx"
+                    target="_blank" rel="noopener">
+                    <img src="assets/empire-of-love-album.png" alt="empire-of-love-album"
+                        class="empire-of-love-album" />
+                </a>
+                <a href="https://music.youtube.com/watch?v=UI7IsfnPNk4" target="_blank" rel="noopener"
+                    class="suki-to-iwareta-hi-link" style="display: block; margin-top: 1rem;">
+                    <img src="assets/suki-to-iwareta-hi.png" alt="Suki To Iwareta Hi Album Cover"
+                        class="suki-to-iwareta-hi" />
+                </a>
+
+                <div style="display: flex; flex-direction: row; gap: 1rem; margin-top: 1rem; align-items: center;">
+                    <a href="https://music.youtube.com/watch?v=IuaLOs6C008" target="_blank" rel="noopener">
+                        <img src="assets/Ecifircas.png" alt="Ecifircas" class="Ecifircas" />
+                    </a>
+                    <a href="https://music.youtube.com/watch?v=_-Yd_3BY55Y" target="_blank" rel="noopener">
+                        <img src="assets/Ittoiteyo.png" alt="Ittoiteyo" class="Ittoiteyo" />
+                    </a>
+                </div>
+                <div class="fixed-image-label">
+                    <img src="assets/pathetic-gaze.png" alt="fixed-pathetic-gaze" />
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

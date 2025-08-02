@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Farewell</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👋</text></svg>"
+        type="image/svg+xml">
+    <style>
+        html {
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            background: #000000cb;
+            color: #fff;
+            font-family: system-ui, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a.home-NavBar,
+        a.music-NavBar,
+        a.computers-NavBar,
+        a.hobbies-NavBar,
+        a.socials-NavBar,
+        a.farewell-NavBar {
+            text-decoration: none;
+        }
+
+        .NavBar {
+            display: flex;
+            height: 6vh;
+            background: rgba(34, 34, 34, 0.82);
+            border-radius: 3vh;
+            width: 90vw;
+            max-width: 79vw;
+            box-shadow: 0 0.4vh 2.4vh 0.2vh rgba(0, 0, 0, 0.3);
+            overflow: visible;
+            backdrop-filter: blur(0.2vh);
+            border: 0.1vh solid rgba(80, 80, 80, 0.15);
+            margin: 1vh auto;
+            flex-shrink: 0;
+        }
+
+        .home-NavBar,
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar,
+        .farewell-NavBar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cdd1d4;
+            border-right: 0.1vh solid rgba(80, 80, 80, 0.10);
+            transition: background 0.2s, color 0.2s;
+            background: transparent;
+            user-select: none;
+            height: 100%;
+            outline: none;
+        }
+
+        .home-NavBar,
+        .farewell-NavBar {
+            flex: 0 0 6vw;
+            font-size: 3vh;
+        }
+
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar {
+            flex: 1 1 0;
+            padding: 0 2vw;
+            font-weight: 600;
+            font-size: 2.5vh;
+            min-width: 7vw;
+            box-sizing: border-box;
+        }
+
+
+        .farewell-NavBar {
+            border-right: none;
+        }
+
+        .home-NavBar:hover,
+        .music-NavBar:hover,
+        .computers-NavBar:hover,
+        .hobbies-NavBar:hover,
+        .socials-NavBar:hover,
+        .farewell-NavBar:hover,
+        .home-NavBar:focus,
+        .music-NavBar:focus,
+        .computers-NavBar:focus,
+        .hobbies-NavBar:focus,
+        .socials-NavBar:focus,
+        .farewell-NavBar:focus {
+            background: rgba(80, 80, 80, 0.24);
+            color: #fff;
+        }
+
+        .home-NavBar[data-tooltip]::after,
+        .farewell-NavBar[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(80, 80, 80, 0.9);
+            color: #fff;
+            padding: 0.3vh 0.8vw;
+            border-radius: 1vh;
+            font-size: 1.5vh;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, top 0.25s;
+        }
+
+        .home-NavBar[data-tooltip]::before,
+        .farewell-NavBar[data-tooltip]::before {
+            content: '';
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0.6vh;
+            border-style: solid;
+            border-color: transparent transparent rgba(80, 80, 80, 0.9) transparent;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, top 0.25s;
+        }
+
+        .home-NavBar[data-tooltip]:hover::after,
+        .home-NavBar[data-tooltip]:hover::before,
+        .home-NavBar[data-tooltip]:focus::after,
+        .home-NavBar[data-tooltip]:focus::before,
+        .farewell-NavBar[data-tooltip]:hover::after,
+        .farewell-NavBar[data-tooltip]:hover::before,
+        .farewell-NavBar[data-tooltip]:focus::after,
+        .farewell-NavBar[data-tooltip]:focus::before {
+            opacity: 1;
+            top: 130%;
+        }
+
+        .fixed-image-label {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.5vh;
+            color: #ccc;
+            max-width: 12vw;
+            margin: 0.5vh 0.5vw;
+            transform-origin: bottom right;
+            transform: scale(0.7);
+        }
+
+        .sayonara {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8vh;
+            font-weight: 800;
+            font-family: system-ui, sans-serif;
+            background: linear-gradient(to bottom right, #6366f1, #ec4899, #facc15);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0.3vh 1vh rgba(0, 0, 0, 0.3);
+        }
+
+        .collage-grid {
+            column-count: 6;
+            column-gap: 1vh;
+            padding: 0 2vw;
+            height: 94vh;
+            display: block;
+            overflow: hidden;
+        }
+
+        .collage-grid img {
+            width: 100%;
+            break-inside: avoid;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            height: auto;
+        }
+
+        .collage-grid img:hover {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 900px) {
+            .collage-grid {
+                column-count: 3;
+            }
+
+            .collage-grid img {
+                height: 23vh;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .collage-grid {
+                column-count: 2;
+            }
+
+            .collage-grid img {
+                height: calc((100vh - 8vh) / 5);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="NavBar" aria-label="Top navigation bar">
+        <a href="index.html" class="home-NavBar" aria-label="Home" data-tooltip="Home" tabindex="0">🏠</a>
+        <a href="musicpage.html" class="music-NavBar" tabindex="0">Music</a>
+        <a href="computerspage.html" class="computers-NavBar" tabindex="0">Computers</a>
+        <a href="hobbiespage.html" class="hobbies-NavBar" tabindex="0">Hobbies</a>
+        <a href="socialspage.html" class="socials-NavBar" tabindex="0">Socials</a>
+        <a href="farewellpage.html" class="farewell-NavBar" aria-label="Farewell" data-tooltip="Farewell"
+            tabindex="0">👋</a>
+    </nav>
+
+    <div class="sayonara">Sayonara!</div>
+
+    <div class="collage-grid">
+        <img src="assets/artwork1.jpg" alt="Artwork 1" />
+        <img src="assets/artwork2.jpg" alt="Artwork 2" />
+        <img src="assets/collage1.jpeg" alt="Collage 1" />
+        <img src="assets/collage2.jpeg" alt="Collage 2" />
+        <img src="assets/collage3.jpeg" alt="Collage 3" />
+        <img src="assets/collage4.jpeg" alt="Collage 4" />
+        <img src="assets/collage5.jpeg" alt="Collage 5" />
+        <img src="assets/collage6.jpeg" alt="Collage 6" />
+        <img src="assets/collage7.jpeg" alt="Collage 7" />
+        <img src="assets/collage8.jpeg" alt="Collage 8" />
+        <img src="assets/collage9.jpeg" alt="Collage 9" />
+        <img src="assets/collage10.jpg" alt="Collage 10" />
+        <img src="assets/collage11.jpg" alt="Collage 11" />
+        <img src="assets/collage12.jpg" alt="Collage 12" />
+        <img src="assets/collage13.jpg" alt="Collage 13" />
+        <img src="assets/collage14.jpg" alt="Collage 14" />
+        <img src="assets/collage15.jpg" alt="Collage 15" />
+    </div>
+    <div class="fixed-image-label">
+        <img src="assets/pathetic-gaze.png" alt="fixed-pathetic-gaze" />
+    </div>
+</body>
+
+</html>

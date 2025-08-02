@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hobbies</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>"
+        type="image/svg+xml">
+    <style>
+        html {
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: system-ui, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a.home-NavBar,
+        a.music-NavBar,
+        a.computers-NavBar,
+        a.hobbies-NavBar,
+        a.socials-NavBar,
+        a.farewell-NavBar {
+            text-decoration: none;
+        }
+
+        .NavBar {
+            display: flex;
+            height: 6vh;
+            background: rgba(34, 34, 34, 0.82);
+            border-radius: 3vh;
+            width: 90vw;
+            max-width: 79vw;
+            box-shadow: 0 0.4vh 2.4vh 0.2vh rgba(0, 0, 0, 0.3);
+            overflow: visible;
+            backdrop-filter: blur(0.2vh);
+            border: 0.1vh solid rgba(80, 80, 80, 0.15);
+            margin: 1vh auto;
+            flex-shrink: 0;
+        }
+
+        .home-NavBar,
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar,
+        .farewell-NavBar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cdd1d4;
+            border-right: 0.1vh solid rgba(80, 80, 80, 0.10);
+            transition: background 0.2s, color 0.2s;
+            background: transparent;
+            user-select: none;
+            height: 100%;
+            outline: none;
+        }
+
+        .home-NavBar,
+        .farewell-NavBar {
+            flex: 0 0 6vw;
+            font-size: 3vh;
+        }
+
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar {
+            flex: 1 1 0;
+            padding: 0 2vw;
+            font-weight: 600;
+            font-size: 2.5vh;
+            min-width: 7vw;
+            box-sizing: border-box;
+        }
+
+
+        .farewell-NavBar {
+            border-right: none;
+        }
+
+        .home-NavBar:hover,
+        .music-NavBar:hover,
+        .computers-NavBar:hover,
+        .hobbies-NavBar:hover,
+        .socials-NavBar:hover,
+        .farewell-NavBar:hover,
+        .home-NavBar:focus,
+        .music-NavBar:focus,
+        .computers-NavBar:focus,
+        .hobbies-NavBar:focus,
+        .socials-NavBar:focus,
+        .farewell-NavBar:focus {
+            background: rgba(80, 80, 80, 0.24);
+            color: #fff;
+        }
+
+        .home-NavBar[data-tooltip]::after,
+        .farewell-NavBar[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(80, 80, 80, 0.9);
+            color: #fff;
+            padding: 0.3vh 0.8vw;
+            border-radius: 1vh;
+            font-size: 1.5vh;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, top 0.25s;
+        }
+
+        .home-NavBar[data-tooltip]::before,
+        .farewell-NavBar[data-tooltip]::before {
+            content: '';
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0.6vh;
+            border-style: solid;
+            border-color: transparent transparent rgba(80, 80, 80, 0.9) transparent;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s, top 0.25s;
+        }
+
+        .home-NavBar[data-tooltip]:hover::after,
+        .home-NavBar[data-tooltip]:hover::before,
+        .home-NavBar[data-tooltip]:focus::after,
+        .home-NavBar[data-tooltip]:focus::before,
+        .farewell-NavBar[data-tooltip]:hover::after,
+        .farewell-NavBar[data-tooltip]:hover::before,
+        .farewell-NavBar[data-tooltip]:focus::after,
+        .farewell-NavBar[data-tooltip]:focus::before {
+            opacity: 1;
+            top: 130%;
+        }
+
+        .fixed-image-label {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.5vh;
+            color: #ccc;
+            max-width: 12vw;
+            margin: 0.5vh 0.5vw;
+            transform-origin: bottom right;
+            transform: scale(0.7);
+        }
+
+        .content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 2vw;
+        }
+
+        .hobbies-text-real {
+            flex: 1 1 auto;
+            min-width: 0;
+            font-size: 3vh;
+            text-align: left;
+            font-family: inherit;
+            background: linear-gradient(to bottom right, #facc15, #ec4899, #6366f1);
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 2.5vh;
+            padding: 2.5vh 10vw;
+        }
+
+        .artwork-bird img {
+            max-width: 17vw;
+            height: auto;
+            border-radius: 1vh;
+            object-fit: cover;
+            margin-right: 5vw;
+        }
+
+        .caption,
+        .anime-watchlist,
+        .manga-readlist {
+            background: linear-gradient(to bottom right, #facc15, #ec4899, #6366f1);
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .caption {
+            margin-right: 2vw;
+        }
+
+        .watchlist-container {
+            display: flex;
+            gap: 4vw;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .anime-watchlist,
+        .manga-readlist {
+            border: 2px solid #6366f1;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+            padding: 2vw;
+            max-width: 500px;
+            font-size: 2.5vh;
+            font-family: inherit;
+        }
+
+        .anime-watchlist h2,
+        .manga-readlist h2 {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        .anime-watchlist ul,
+        .manga-readlist ul {
+            padding-left: 1.2em;
+        }
+
+        .anime-watchlist li,
+        .manga-readlist li {
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="NavBar" aria-label="Top navigation bar">
+        <a href="index.html" class="home-NavBar" aria-label="Home" data-tooltip="Home" tabindex="0">🏠</a>
+        <a href="musicpage.html" class="music-NavBar" tabindex="0">Music</a>
+        <a href="computerspage.html" class="computers-NavBar" tabindex="0">Computers</a>
+        <a href="hobbiespage.html" class="hobbies-NavBar" tabindex="0">Hobbies</a>
+        <a href="socialspage.html" class="socials-NavBar" tabindex="0">Socials</a>
+        <a href="farewellpage.html" class="farewell-NavBar" aria-label="Farewell" data-tooltip="Farewell"
+            tabindex="0">👋</a>
+    </nav>
+    <main class="hobbies-para">
+        <div class="content-wrapper">
+            <div class="hobbies-text-real">
+                This page is just stuff I like doing in my free time. I value everything artsy, so I
+                recently started drawing - yeah, my drawings are terrible, but I like that you can turn imagination into
+                something visual. It’s basically a superpower. You’re creating something from sheer thought, like divine
+                powers.<br><br>
+                I’m also deep into fiction, especially manga and anime — pretty much all genres, from romance to
+                horror.<br><br>
+                I play football and basketball with my friends most Fridays too, since we don’t have school
+                that day.<br><br>
+            </div>
+
+            <div class="artwork-bird">
+                <p class="caption">This is an artwork I made, it’s meant to be a bird with pink hair.</p>
+                <img src="assets/artwork2.jpg" alt="bird" />
+            </div>
+
+        </div>
+    </main>
+
+    <div class="watchlist-container">
+        <div class="anime-watchlist">
+            <h2>Animes I want to watch</h2>
+            <ul>
+                <li>Tokyo Ghoul</li>
+                <li>Dandadan</li>
+                <li>Oshi no Ko</li>
+                <li>Nekopara</li>
+                <li>Kimi ga Shinu made Koi wo Shitai</li>
+                <li>Guimi Zhi Zhu</li>
+            </ul>
+        </div>
+
+        <div class="manga-readlist">
+            <h2>Mangas I want to read</h2>
+            <ul>
+                <li>Senryuu Shoujo</li>
+                <li>Qing Qifu Wo Ba, Eyi Xiaojie!</li>
+                <li>Ki ni Natteru Hito ga Otoko Janakatta</li>
+                <li>Kusunoki-san wa Koukou Debut ni Shippaishiteiru</li>
+                <li>Himaten!</li>
+                <li>Homunculus</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="fixed-image-label">
+        <img src="assets/pathetic-gaze.png" alt="fixed-pathetic-gaze" />
+    </div>
+
+</body>
+
+</html>
