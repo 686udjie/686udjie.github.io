@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <title>Socials</title>
+    <!--Viewport for mobile scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔗</text></svg>"
         type="image/svg+xml">
@@ -11,6 +13,13 @@
         html {
             overflow-y: hidden;
             overflow-x: hidden;
+        }
+
+        @media (max-width: 600px) {
+            html {
+                /* Allow vertical scrolling on mobile,*/
+                overflow-y: visible;
+            }
         }
 
         body {
@@ -48,26 +57,6 @@
         }
 
         .home-NavBar,
-        .music-NavBar,
-        .computers-NavBar,
-        .hobbies-NavBar,
-        .socials-NavBar,
-        .farewell-NavBar {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #cdd1d4;
-            border-right: 0.1vh solid rgba(80, 80, 80, 0.10);
-            transition: background 0.2s, color 0.2s;
-            background: transparent;
-            user-select: none;
-            height: 100%;
-            outline: none;
-        }
-
-        .home-NavBar,
         .farewell-NavBar {
             flex: 0 0 6vw;
             font-size: 3vh;
@@ -85,25 +74,28 @@
             box-sizing: border-box;
         }
 
-
         .farewell-NavBar {
             border-right: none;
         }
 
-        .home-NavBar:hover,
-        .music-NavBar:hover,
-        .computers-NavBar:hover,
-        .hobbies-NavBar:hover,
-        .socials-NavBar:hover,
-        .farewell-NavBar:hover,
-        .home-NavBar:focus,
-        .music-NavBar:focus,
-        .computers-NavBar:focus,
-        .hobbies-NavBar:focus,
-        .socials-NavBar:focus,
-        .farewell-NavBar:focus {
-            background: rgba(80, 80, 80, 0.24);
-            color: #fff;
+        .home-NavBar,
+        .music-NavBar,
+        .computers-NavBar,
+        .hobbies-NavBar,
+        .socials-NavBar,
+        .farewell-NavBar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #cdd1d4;
+            border-right: 0.1vh solid rgba(80, 80, 80, 0.10);
+            transition: background 0.2s, color 0.2s;
+            background: transparent;
+            user-select: none;
+            height: 100%;
+            outline: none;
         }
 
         .home-NavBar[data-tooltip]::after,
@@ -153,17 +145,57 @@
 
         .fixed-image-label {
             position: fixed;
-            bottom: 0;
-            right: 0;
+            bottom: 0.5vh;
+            right: 0.5vw;
             display: flex;
             flex-direction: column;
             align-items: center;
             font-size: 1.5vh;
             color: #ccc;
             max-width: 12vw;
-            margin: 0.5vh 0.5vw;
+            margin: 0;
             transform-origin: bottom right;
             transform: scale(0.7);
+        }
+
+        /* makes bunny girl appear at the bottom right corner on mobile */
+        @media (max-width: 600px) {
+            .fixed-image-label {
+                position: fixed !important;
+                bottom: 0.5vh !important;
+                right: 0.5vw !important;
+                margin: 0 !important;
+                transform: scale(0.7) !important;
+                max-width: 12vw !important;
+            }
+        }
+
+        /* mobile optimizations for NavBar*/
+        @media (max-width: 600px) {
+            .NavBar {
+                flex-direction: column;
+                height: auto;
+                width: 100vw;
+                max-width: 100vw;
+                border-radius: 1.5vh;
+            }
+
+            .home-NavBar,
+            .music-NavBar,
+            .computers-NavBar,
+            .hobbies-NavBar,
+            .socials-NavBar,
+            .farewell-NavBar {
+                border-right: none !important;
+                border-bottom: 1px solid rgba(80, 80, 80, 0.10);
+                font-size: 5vw;
+                padding: 1vh 0;
+                min-width: 40vw;
+            }
+
+            .farewell-NavBar {
+                border-bottom: none;
+            }
         }
 
         .social-links {
@@ -186,6 +218,35 @@
         .social-icon:hover {
             transform: scale(5.5);
             transition: transform 0.3s ease;
+        }
+
+        /* mobile styling for the icon(s) stack */
+        @media (max-width: 600px) {
+            .social-links {
+                display: flex;
+                flex-direction: column;
+                /* stack vertically on mobile */
+                align-items: center;
+                height: 100vh;
+                /* full viewport height */
+                justify-content: space-evenly;
+                padding: 1rem 0;
+                box-sizing: border-box;
+            }
+
+            .social-icon {
+                flex-grow: 1;
+                /* let icons grow evenly */
+                max-height: 3.45vh;
+                /* DO NOT CHANGE, IT WILL BREAK EVERYTHING */
+                width: auto;
+                transition: none;
+            }
+
+            .social-icon:hover {
+                transform: none;
+                /* no scaling hover */
+            }
         }
     </style>
 </head>
